@@ -11,7 +11,8 @@ class MySQLDB  {
         }
 
     async getUsers() {
-        return await this.pool.query("SELECT * FROM users"); // destructure the result
+        const rows =  (await this.pool.query("SELECT * FROM users")); // destructure the result
+        return rows[0]; // return only the rows
     }
 }
 
