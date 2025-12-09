@@ -1,17 +1,22 @@
 const mysql = require('mysql2/promise');
 
-class MySQLDB  {
+class MySQLDB {
     constructor() {
         this.pool = mysql.createPool({
-                host: "localhost" ,
-                database: "example",
-                user: "admin" ,
-                "password": "admin"
-            });
-        }
+            host: "localhost",
+            database: "example",
+            user: "admin",
+            "password": "admin"
+        });
+    }
 
     async getUsers() {
-        const rows =  (await this.pool.query("SELECT * FROM users")); // destructure the result
+        const rows = (await this.pool.query("SELECT * FROM users")); // destructure the result
+        return rows[0]; // return only the rows
+    }
+
+    async getUser(id) {
+        const rows = (await this.pool.query(`SELECT * FROM users WHERE id=${id}`)); // destructure the result
         return rows[0]; // return only the rows
     }
 }

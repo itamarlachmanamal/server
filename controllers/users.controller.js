@@ -11,6 +11,12 @@ exports.getAllUsers = async (req, res) => {
     res.json(userRows);
 };
 
-exports.getUser = asy
+exports.getUserById = async (req, res) => {
+    const id = req.params.id;
+    const row = await db.getUser(id);
+    const user = new UserModel(row[0].id, row[0].username, row[0].password, row[0].phone);
+    if (user) res.json(user);
+    else res.status(404).json({ message: 'User not found' });
+};
 
 
